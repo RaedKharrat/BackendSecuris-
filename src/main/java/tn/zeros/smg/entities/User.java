@@ -72,9 +72,7 @@ public class User implements Serializable, UserDetails {
     private UStatus status;
     String photomat;
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-    @JsonBackReference
-    Panier panier;
+
 
     // UserDetails methods
 

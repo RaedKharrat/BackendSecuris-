@@ -18,7 +18,6 @@ import tn.zeros.smg.entities.*;
 import tn.zeros.smg.entities.enums.UStatus;
 import tn.zeros.smg.exceptions.InvalidCredentialsException;
 import tn.zeros.smg.repositories.ConfirmationRepository;
-import tn.zeros.smg.repositories.PanierRepository;
 import tn.zeros.smg.repositories.RoleRepository;
 import tn.zeros.smg.repositories.UserRepository;
 import tn.zeros.smg.services.IServices.IEmailService;
@@ -40,7 +39,7 @@ public class UserService implements IUserService {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final ConfirmationRepository confirmationRepository;
-    private final PanierRepository panierRepository;
+    //private final PanierRepository panierRepository;
 
     private final IEmailService emailService;
     private final ITokenService tokenService;
@@ -68,7 +67,7 @@ public class UserService implements IUserService {
         user.setStatus(UStatus.Unconfirmed);
         user.setRole(authorities);
         userRepository.save(user);
-        ensureUserHasPanier(user);
+        //ensureUserHasPanier(user);
         confirmNewEmail(user);
         return user;
     }
@@ -147,7 +146,7 @@ public class UserService implements IUserService {
         user.setStatus(UStatus.Pending);
         confirmationRepository.delete(confirmation);
         //notify all admins that a new user is pending
-        log.info("notifying all admins");
+        log.info("notifying all admins -hidden msg by raed kharrat , the app provider and tnks <3 good luck salma <3 -");
         List<User> admins = userRepository.findAdminUsers();
         admins.forEach(admin -> {
             Notification N= Notification.builder().title("Nouveau utilisateur en attente").description("Un nouveau utilisateur est en attente de confirmation").useRouter(true).link("/dashboards/clients/"+user.getId()).user(admin).build();
@@ -289,7 +288,7 @@ public class UserService implements IUserService {
         }
     }
 
-    @Transactional
+    /*@Transactional
     public void ensureUserHasPanier(User user) {
         if (user.getPanier() == null) {
             Panier panier = new Panier();
@@ -297,21 +296,21 @@ public class UserService implements IUserService {
             user.setPanier(panier);
             userRepository.save(user);
         }
-    }
+    }*/
 
-    @Transactional
+   /* @Transactional
     public void ensureAllUsersHavePaniers() {
         List<User> users = userRepository.findAll();
         for (User user : users) {
             ensureUserHasPanier(user);
         }
-    }
+    }*/
 
-    @Override
+    /*@Override
     public Panier getUserPanier(Long userId) {
         User user = userRepository.findById(userId).orElseThrow(() -> new EntityNotFoundException("User not found with id: " + userId));
         return user.getPanier();
-    }
+    }*/
 
     @Override
     public String soldeSum() {
