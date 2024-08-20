@@ -58,13 +58,12 @@ public class UserService implements IUserService {
         if (userRepository.findByEmail(user.getEmail()).isPresent()) {
             return null;
         }
-        //////////////////////////////////////////////////////////////////////
         String encodedPassword = encoder.encode(user.getPassword());
         Role userRole = roleRepository.findById(2L).get();
         Set<Role> authorities = new HashSet<>();
         authorities.add(userRole);
         user.setPassword(encodedPassword);
-        user.setStatus(UStatus.Unconfirmed);
+        user.setStatus(UStatus.Pending);
         user.setRole(authorities);
         userRepository.save(user);
         //ensureUserHasPanier(user);
@@ -80,7 +79,7 @@ public class UserService implements IUserService {
 
         // Check if the password matches
         if (!encoder.matches(password, user.getPassword()) || !user.getStatus().equals(UStatus.Active)) {
-            throw new InvalidCredentialsException("Wrong code or password");
+            throw new InvalidCredentialsException("Wrong email or password");
         }
 
         // Generate JWT token
