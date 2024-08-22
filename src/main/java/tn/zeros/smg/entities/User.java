@@ -72,7 +72,17 @@ public class User implements Serializable, UserDetails {
     private UStatus status;
     String photomat;
 
+    @OneToMany(mappedBy = "user")
+    private List<LeaveRequest> leaveRequests;
 
+    @OneToMany(mappedBy = "user")
+    private List<StageRequest> stageRequests;
+
+    @OneToMany(mappedBy = "user")
+    private List<Absence> absences;
+
+    @OneToMany(mappedBy = "user")
+    private List<Payroll> payrolls;
 
     // UserDetails methods
 
