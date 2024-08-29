@@ -65,8 +65,8 @@ public class UserService implements IUserService {
         user.setPassword(encodedPassword);
         user.setStatus(UStatus.Pending);
         user.setRole(authorities);
+        user.setCode(user.getNom());
         userRepository.save(user);
-        //ensureUserHasPanier(user);
         confirmNewEmail(user);
         return user;
     }
@@ -325,6 +325,11 @@ public class UserService implements IUserService {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentCode = authentication.getName();
         return userRepository.findByCode(currentCode).orElseThrow(() -> new EntityNotFoundException("User not found with code: " + currentCode));
+    }
+
+    public User findById(Long id) {
+        return userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
+
     }
 }
 

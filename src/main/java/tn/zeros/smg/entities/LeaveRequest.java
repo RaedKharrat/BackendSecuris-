@@ -24,5 +24,5 @@ public class LeaveRequest {
     @Enumerated(EnumType.STRING)
     private LeaveStatus status;
 
-    private int daysAccrued; // 2 days per month
+    private int daysAccrued;
 }

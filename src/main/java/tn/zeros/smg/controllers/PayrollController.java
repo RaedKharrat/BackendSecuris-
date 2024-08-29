@@ -1,8 +1,10 @@
 package tn.zeros.smg.controllers;
 
 import tn.zeros.smg.entities.Payroll;
+import tn.zeros.smg.entities.User;
 import tn.zeros.smg.services.PayrollService;
 import org.springframework.web.bind.annotation.*;
+import tn.zeros.smg.services.UserService;
 
 import java.util.List;
 
@@ -10,9 +12,11 @@ import java.util.List;
 @RequestMapping("/api/payrolls")
 public class PayrollController {
     private final PayrollService service;
+    private final UserService userService;
 
-    public PayrollController(PayrollService service) {
+    public PayrollController(PayrollService service, UserService userService) {
         this.service = service;
+        this.userService = userService;
     }
 
     @GetMapping
@@ -32,6 +36,9 @@ public class PayrollController {
 
     @PostMapping
     public Payroll createPayroll(@RequestBody Payroll payroll) {
+
+        User user = userService.findById(payroll.getUser().getId());
+        payroll.setUser(user);
         return service.save(payroll);
     }
 

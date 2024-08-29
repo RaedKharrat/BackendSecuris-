@@ -13,6 +13,7 @@ public class Absence {
     private Long id;
 
     @ManyToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id") // Explicitly specify the join column
     private User user;
 
     private LocalDate absenceDate;

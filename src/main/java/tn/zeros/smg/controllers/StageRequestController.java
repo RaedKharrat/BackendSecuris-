@@ -1,8 +1,10 @@
 package tn.zeros.smg.controllers;
 
 import tn.zeros.smg.entities.StageRequest;
+import tn.zeros.smg.entities.User;
 import tn.zeros.smg.services.StageRequestService;
 import org.springframework.web.bind.annotation.*;
+import tn.zeros.smg.services.UserService;
 
 import java.util.List;
 
@@ -10,8 +12,11 @@ import java.util.List;
 @RequestMapping("/api/stagerequests")
 public class StageRequestController {
     private final StageRequestService service;
+    private final UserService userService;
 
-    public StageRequestController(StageRequestService service) {
+    public StageRequestController(StageRequestService service, UserService userService)
+    {
+        this.userService = userService;
         this.service = service;
     }
 
@@ -32,6 +37,8 @@ public class StageRequestController {
 
     @PostMapping
     public StageRequest createStageRequest(@RequestBody StageRequest stageRequest) {
+        User user = userService.findById(stageRequest.getUser().getId());
+        stageRequest.setUser(user);
         return service.save(stageRequest);
     }
 
