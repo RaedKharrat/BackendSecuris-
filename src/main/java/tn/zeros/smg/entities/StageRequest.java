@@ -1,5 +1,6 @@
 package tn.zeros.smg.entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -11,6 +12,7 @@ public class StageRequest {
     private Long id;
 
     @ManyToOne
+    @JsonManagedReference
     private User user;
 
     private String cvUrl;

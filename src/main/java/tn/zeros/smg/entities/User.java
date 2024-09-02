@@ -76,12 +76,15 @@ public class User implements Serializable, UserDetails {
     private List<LeaveRequest> leaveRequests;
 
     @OneToMany(mappedBy = "user")
+    @JsonBackReference
     private List<StageRequest> stageRequests;
 
     @OneToMany(mappedBy = "user")
+    @JsonBackReference
     private List<Absence> absences;
 
     @OneToMany(mappedBy = "user")
+    @JsonBackReference
     private List<Payroll> payrolls;
 
     // UserDetails methods

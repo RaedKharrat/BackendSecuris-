@@ -1,5 +1,6 @@
 package tn.zeros.smg.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -14,6 +15,7 @@ public class Absence {
 
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id") // Explicitly specify the join column
+    @JsonBackReference
     private User user;
 
     private LocalDate absenceDate;

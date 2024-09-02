@@ -1,5 +1,7 @@
 package tn.zeros.smg.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -11,6 +13,7 @@ public class Payroll {
     private Long id;
 
     @ManyToOne
+    @JsonIgnore
     private User user;
 
     private double amount;
