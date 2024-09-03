@@ -1,5 +1,7 @@
 package tn.zeros.smg.controllers;
 
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import tn.zeros.smg.entities.Absence;
 import tn.zeros.smg.entities.User;
 import tn.zeros.smg.services.AbsenceService;
@@ -9,6 +11,8 @@ import tn.zeros.smg.services.UserService;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200", allowCredentials = "true")
+@Slf4j
 @RequestMapping("/api/absences")
 public class AbsenceController {
     private final AbsenceService service;
@@ -37,12 +41,15 @@ public class AbsenceController {
     }
 
     @PostMapping
-    public Absence createAbsence(@RequestBody Absence absence) {
-
+    public ResponseEntity<Absence> createAbsence(@RequestBody Absence absence) {
         User user = userService.findById(absence.getUser().getId());
         absence.setUser(user);
 
-        return service.save(absence);
+        // Save the absence and get the saved instance
+        Absence savedAbsence = service.save(absence);
+
+        // Wrap the saved absence in a ResponseEntity and return it
+        return ResponseEntity.ok(savedAbsence);
     }
 
     @DeleteMapping("/{id}")

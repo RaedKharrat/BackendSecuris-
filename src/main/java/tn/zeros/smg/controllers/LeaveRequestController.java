@@ -1,5 +1,6 @@
 package tn.zeros.smg.controllers;
 
+import lombok.extern.slf4j.Slf4j;
 import tn.zeros.smg.entities.LeaveRequest;
 import tn.zeros.smg.entities.User;
 import tn.zeros.smg.services.LeaveRequestService;
@@ -9,6 +10,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200", allowCredentials = "true")
+@Slf4j
 @RequestMapping("/api/leaverequests")
 public class LeaveRequestController {
     private final LeaveRequestService leaveRequestService;

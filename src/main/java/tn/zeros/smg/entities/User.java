@@ -2,6 +2,7 @@ package tn.zeros.smg.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -73,6 +74,7 @@ public class User implements Serializable, UserDetails {
     String photomat;
 
     @OneToMany(mappedBy = "user")
+    @JsonBackReference
     private List<LeaveRequest> leaveRequests;
 
     @OneToMany(mappedBy = "user")

@@ -1,5 +1,6 @@
 package tn.zeros.smg.controllers;
 
+import lombok.extern.slf4j.Slf4j;
 import tn.zeros.smg.entities.StageRequest;
 import tn.zeros.smg.entities.User;
 import tn.zeros.smg.services.StageRequestService;
@@ -9,6 +10,8 @@ import tn.zeros.smg.services.UserService;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200", allowCredentials = "true")
+@Slf4j
 @RequestMapping("/api/stagerequests")
 public class StageRequestController {
     private final StageRequestService service;
