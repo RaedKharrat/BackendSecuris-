@@ -45,12 +45,10 @@ public class AbsenceController {
         User user = userService.findById(absence.getUser().getId());
         absence.setUser(user);
 
-        // Save the absence and get the saved instance
         Absence savedAbsence = service.save(absence);
-
-        // Wrap the saved absence in a ResponseEntity and return it
         return ResponseEntity.ok(savedAbsence);
     }
+
 
     @DeleteMapping("/{id}")
     public void deleteAbsence(@PathVariable Long id) {

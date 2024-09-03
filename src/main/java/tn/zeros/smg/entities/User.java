@@ -74,19 +74,19 @@ public class User implements Serializable, UserDetails {
     String photomat;
 
     @OneToMany(mappedBy = "user")
-    @JsonBackReference
+    @JsonIgnore
     private List<LeaveRequest> leaveRequests;
 
     @OneToMany(mappedBy = "user")
-    @JsonBackReference
+    @JsonIgnore
     private List<StageRequest> stageRequests;
 
     @OneToMany(mappedBy = "user")
-    @JsonBackReference
+    @JsonIgnore
     private List<Absence> absences;
 
     @OneToMany(mappedBy = "user")
-    @JsonBackReference
+    @JsonIgnore
     private List<Payroll> payrolls;
 
     // UserDetails methods
